@@ -8,25 +8,32 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9QZUBLOKoLZ_aWyelbOnQm1aHAtxJ91o&libraries=places"></script>
     <script>
         function initMap() {
-            // var map = new google.maps.Map(document.getElementById('map'), {
-            //     center: { lat: 12.925996715562075, lng: 77.67000277209104 }, // LAtitude & Longitude
-            //     zoom: 15
-            // });
+            const placeId = "ChIJiVnsL3oTrjsR8hG4dKfdG78"; // Replace with your Google Place ID
+            const map = new google.maps.Map(document.createElement("div"));
+            const service = new google.maps.places.PlacesService(map);
 
-            var service = new google.maps.places.PlacesService(map);
-            service.getDetails({
-                placeId: 'ChIJiVnsL3oTrjsR8hG4dKfdG78' // Google Maps Place ID
-            }, function (place, status) {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    document.getElementById('reviews').innerHTML = place.reviews.map(review => `
-                        <div class="review">
-                            <h3>${review.author_name}</h3>
-                            <p>Rating: ${review.rating} ⭐</p>
-                            <p>${review.text}</p>
-                        </div>
-                    `).join('');
+            service.getDetails(
+                {
+                    placeId: placeId,
+                    fields: ["reviews"]
+                },
+                (place, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK && place.reviews) {
+                        const filteredReviews = place.reviews.filter(review => review.rating === 5).slice(0, 4);
+                        const reviewsContainer = document.getElementById("reviews");
+
+                        filteredReviews.forEach(review => {
+                            const reviewElement = document.createElement("div");
+                            reviewElement.classList.add("review");
+                            reviewElement.innerHTML = `
+                                <p><strong>${review.author_name}</strong> - ⭐⭐⭐⭐⭐</p>
+                                <p>"${review.text}"</p>
+                            `;
+                            reviewsContainer.appendChild(reviewElement);
+                        });
+                    }
                 }
-            });
+            );
         }
     </script>
 </head>
@@ -44,7 +51,7 @@
     </nav>
     <div class="container">
         <h2>Student Testimonials</h2>
-        <div id="reviews">Loading reviews...</div>
+        <div id="reviews"></div>
     </div>
     <div class="container">
         <!-- <h2>Find Us on Google Maps</h2> -->
