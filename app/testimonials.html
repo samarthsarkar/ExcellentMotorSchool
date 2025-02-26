@@ -3,12 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testimonials - Excellent Driving School</title>
+    <title>Testimonials</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9QZUBLOKoLZ_aWyelbOnQm1aHAtxJ91o&libraries=places"></script>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .review {
+            background-color: #FFD700;
+            color: #000;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .review p {
+            margin: 5px 0;
+        }
+
+        .review strong {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Testimonials</h1>
+    </header>
+
+    <div class="container">
+        <h2>What Our Students Say</h2>
+        <div id="reviews"></div>
+    </div>
+
     <script>
         function initMap() {
-            const placeId = "ChIJiVnsL3oTrjsR8hG4dKfdG78"; // Replace with your Google Place ID
+            const placeId = "ChIJiVnsL3oTrjsR8hG4dKfdG78";
             const map = new google.maps.Map(document.createElement("div"));
             const service = new google.maps.places.PlacesService(map);
 
@@ -36,29 +72,7 @@
             );
         }
     </script>
-</head>
-<body onload="initMap()">
-    <header>
-        <img src="\assets\logo.png" alt="Excellent Driving School Logo" width="150">
-        <h1>What Our Students Say</h1>
-    </header>
-    <nav>
-        <a href="home.html">Home</a>
-        <a href="courses.html">Courses</a>
-        <a href="about.html">About</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html">Contact Us</a>
-    </nav>
-    <div class="container">
-        <h2>Student Testimonials</h2>
-        <div id="reviews"></div>
-    </div>
-    <div class="container">
-        <!-- <h2>Find Us on Google Maps</h2> -->
-        <div id="map" style="height: 400px;"></div>
-    </div>
-    <footer>
-        <p>&copy; 2025 Excellent Driving School. All rights reserved.</p>
-    </footer>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9QZUBLOKoLZ_aWyelbOnQm1aHAtxJ91o&libraries=places&callback=initMap" async defer></script>
 </body>
 </html>
