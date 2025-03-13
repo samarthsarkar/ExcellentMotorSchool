@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9QZUBLOKoLZ_aWyelbOnQm1aHAtxJ91o&libraries=places"></script>
     <script>
-        function initMap() {
+        function initMap()  {
             var branch1 = { lat: 12.92915209741632, lng: 77.66914848865208 }; 
             var branch2 = { lat: 12.931327109162606, lng: 77.6765299274239 }; 
             
@@ -33,11 +33,12 @@
         }
     </script>
 </head>
-<body onload="initMap()">
+<body class="page-wrapper" onload="initMap()">
     <header>
         <img src="\assets\logo.png" alt="Excellent Driving School Logo" width="150">
         <h1>Contact Us</h1>
     </header>
+    
     <nav>
         <a href="home.html">Home</a>
         <a href="courses.html">Courses</a>
@@ -45,22 +46,29 @@
         <a href="testimonials.html">Testimonials</a>
         <a href="contact.html">Contact Us</a>
     </nav>
-    <div class="container">
-        <h2>Branch 1: Main Office</h2>
-        <p>Address: 123 Main Street, City, Country</p>
-        <p>Phone: +123 456 7890</p>
-        <p>Email: branch1@excellentdrivingschool.com</p>
-        <img src="\assets\contact1.jpeg" alt="Branch 1" width="100%" style="max-width: 600px; border: 2px solid #000;">
-        <div id="map1" style="height: 400px;"></div>
-    </div>
-    <div class="container">
-        <h2>Branch 2: Secondary Office</h2>
-        <p>Address: 456 Second Avenue, City, Country</p>
-        <p>Phone: +987 654 3210</p>
-        <p>Email: branch2@excellentdrivingschool.com</p>
-        <img src="\assets\contact2.jpeg" alt="Branch 2" width="100%" style="max-width: 600px; border: 2px solid #000;">
-        <div id="map2" style="height: 400px;"></div>
-    </div>
+    
+    <main>
+        <div class="grid-container">
+            <section class="card container">
+                <h2>Branch 1: Main Office</h2>
+                <p>Address: 123 Main Street, City, Country</p>
+                <p>Phone: +123 456 7890</p>
+                <p>Email: branch1@excellentdrivingschool.com</p>
+                <img src="\assets\contact1.jpeg" alt="Branch 1" width="100%" style="max-width: 600px; border-radius: var(--border-radius); margin: var(--spacing-md) 0;">
+                <div id="map1"></div>
+            </section>
+            
+            <section class="card container">
+                <h2>Branch 2: Secondary Office</h2>
+                <p>Address: 456 Second Avenue, City, Country</p>
+                <p>Phone: +987 654 3210</p>
+                <p>Email: branch2@excellentdrivingschool.com</p>
+                <img src="\assets\contact2.jpeg" alt="Branch 2" width="100%" style="max-width: 600px; border-radius: var(--border-radius); margin: var(--spacing-md) 0;">
+                <div id="map2"></div>
+            </section>
+        </div>
+    </main>
+    
     <footer>
         <p>&copy; 2025 Excellent Driving School. All rights reserved.</p>
     </footer>

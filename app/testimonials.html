@@ -3,44 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testimonials</title>
+    <title>Testimonials - Excellent Driving School</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .review {
-            background-color: #FFD700;
-            color: #000;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            text-align: left;
-        }
-
-        .review p {
-            margin: 5px 0;
-        }
-
-        .review strong {
-            font-size: 1.1rem;
-        }
-    </style>
 </head>
-<body>
+<body class="page-wrapper">
     <header>
+        <img src="\assets\logo.png" alt="Excellent Driving School Logo" width="150">
         <h1>Testimonials</h1>
     </header>
+    
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="about.html">About</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact Us</a>
+    </nav>
 
-    <div class="container">
-        <h2>What Our Students Say</h2>
-        <div id="reviews"></div>
-    </div>
+    <main>
+        <section class="container">
+            <h2>What Our Students Say</h2>
+            <div id="reviews" class="grid-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Excellent Driving School. All rights reserved.</p>
+    </footer>
 
     <script>
         function initMap() {
@@ -61,6 +50,7 @@
                         filteredReviews.forEach(review => {
                             const reviewElement = document.createElement("div");
                             reviewElement.classList.add("review");
+                            reviewElement.classList.add("card");
                             reviewElement.innerHTML = `
                                 <p><strong>${review.author_name}</strong> - ⭐⭐⭐⭐⭐</p>
                                 <p>"${review.text}"</p>
