@@ -5,25 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Testimonials - Excellent Driving School</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="page-wrapper">
+    <div class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
     <header>
         <img src="\assets\logo.png" alt="Excellent Driving School Logo" width="150">
         <h1>Testimonials</h1>
     </header>
     
     <nav>
-        <a href="home.html">Home</a>
-        <a href="courses.html">Courses</a>
-        <a href="about.html">About</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html">Contact Us</a>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="desktop-nav">
+            <a href="home.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="about.html">About</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
     </nav>
 
     <main>
         <section class="container">
             <h2>What Our Students Say</h2>
-            <div id="reviews" class="grid-container"></div>
+            
+            <div class="testimonial-carousel">
+                <div class="testimonial-container" id="reviews">
+                    <!-- Reviews will be dynamically added here by the script -->
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-control prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-control next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="carousel-dots">
+                    <!-- Dots will be dynamically added based on the number of reviews -->
+                </div>
+            </div>
         </section>
     </main>
 
@@ -32,7 +62,8 @@
     </footer>
 
     <script>
-        function initMap() {
+        // Modified testimonials script to create carousel
+        function initMap()  {
             const placeId = "ChIJiVnsL3oTrjsR8hG4dKfdG78";
             const map = new google.maps.Map(document.createElement("div"));
             const service = new google.maps.places.PlacesService(map);
@@ -46,16 +77,33 @@
                     if (status === google.maps.places.PlacesServiceStatus.OK && place.reviews) {
                         const filteredReviews = place.reviews.filter(review => review.rating === 5).slice(0, 4);
                         const reviewsContainer = document.getElementById("reviews");
-
-                        filteredReviews.forEach(review => {
+                        const dotsContainer = document.querySelector('.carousel-dots');
+                        
+                        // Clear existing content
+                        reviewsContainer.innerHTML = '';
+                        
+                        // Add reviews to carousel
+                        filteredReviews.forEach((review, index) => {
+                            const slideDiv = document.createElement("div");
+                            slideDiv.classList.add("testimonial-slide");
+                            
                             const reviewElement = document.createElement("div");
                             reviewElement.classList.add("review");
                             reviewElement.classList.add("card");
                             reviewElement.innerHTML = `
                                 <p><strong>${review.author_name}</strong> - ⭐⭐⭐⭐⭐</p>
                                 <p>"${review.text}"</p>
+                                <p class="review-date">${new Date(review.time * 1000).toLocaleDateString()}</p>
                             `;
-                            reviewsContainer.appendChild(reviewElement);
+                            
+                            slideDiv.appendChild(reviewElement);
+                            reviewsContainer.appendChild(slideDiv);
+                            
+                            // Create dot for this slide
+                            const dot = document.createElement("div");
+                            dot.classList.add("carousel-dot");
+                            if (index === 0) dot.classList.add("active");
+                            dotsContainer.appendChild(dot);
                         });
                     }
                 }
@@ -63,6 +111,7 @@
         }
     </script>
 
+    <script src="script.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9QZUBLOKoLZ_aWyelbOnQm1aHAtxJ91o&libraries=places&callback=initMap" async defer></script>
 </body>
 </html>
