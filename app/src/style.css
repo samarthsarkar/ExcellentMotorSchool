@@ -24,6 +24,7 @@
     --bg-color: #121212;
     --card-bg: #1e1e1e;
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --heading-color: #FFD700; /* New variable for headings in dark mode */
 }
 
 * {
@@ -398,6 +399,11 @@ li {
     padding-bottom: var(--spacing-xs);
     margin-bottom: var(--spacing-md);
     display: inline-block;
+}
+
+/* Dark mode specific styles for card headings */
+[data-theme="dark"] .card h3 {
+    color: var(--heading-color);
 }
 
 /* Page transitions */
