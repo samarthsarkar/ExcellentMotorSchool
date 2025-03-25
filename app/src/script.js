@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const desktopNav = document.querySelector('.desktop-nav');
     
     if (hamburger) {
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
             this.classList.toggle('active');
             desktopNav.classList.toggle('active');
         });
@@ -48,6 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
             hamburger.classList.remove('active');
         }
     });
+    
+    // Ensure menu works on mobile touch events
+    if (hamburger) {
+        hamburger.addEventListener('touchend', function(e) {
+            e.preventDefault(); // Prevent default touch behavior
+            e.stopPropagation(); // Prevent event bubbling
+            this.classList.toggle('active');
+            desktopNav.classList.toggle('active');
+        });
+    }
     
     // Interactive testimonials
     const reviews = document.querySelectorAll('.review');
@@ -68,65 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Testimonial carousel functionality
-    const carousel = document.querySelector('.testimonial-carousel');
-    if (carousel) {
-        const container = carousel.querySelector('.testimonial-container');
-        const slides = carousel.querySelectorAll('.testimonial-slide');
-        const prevBtn = carousel.querySelector('.prev-btn');
-        const nextBtn = carousel.querySelector('.next-btn');
-        const dots = carousel.querySelectorAll('.carousel-dot');
-        
-        let currentIndex = 0;
-        const slideCount = slides.length;
-        
-        // Initialize carousel
-        updateCarousel();
-        
-        // Previous button click
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function() {
-                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
-                updateCarousel();
-            });
-        }
-        
-        // Next button click
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function() {
-                currentIndex = (currentIndex + 1) % slideCount;
-                updateCarousel();
-            });
-        }
-        
-        // Dot navigation
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', function() {
-                currentIndex = index;
-                updateCarousel();
-            });
-        });
-        
-        // Update carousel position and active dot
-        function updateCarousel() {
-            container.style.transform = `translateX(-${currentIndex * 100}%)`;
-            
-            // Update active dot
-            dots.forEach((dot, index) => {
-                if (index === currentIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-        
-        // Auto-advance carousel
-        setInterval(function() {
-            currentIndex = (currentIndex + 1) % slideCount;
-            updateCarousel();
-        }, 5000);
-    }
+    // Testimonial carousel functionality is now handled in testimonials.html
+    // to ensure proper timing with Google Maps API loading
     
     // Add page transition effect
     document.body.classList.add('page-transition');

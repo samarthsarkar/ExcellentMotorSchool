@@ -75,12 +75,13 @@
                 },
                 (place, status) => {
                     if (status === google.maps.places.PlacesServiceStatus.OK && place.reviews) {
-                        const filteredReviews = place.reviews.filter(review => review.rating === 5).slice(0, 4);
+                        const filteredReviews = place.reviews.filter(review => review.rating === 5).slice(0, 10);
                         const reviewsContainer = document.getElementById("reviews");
                         const dotsContainer = document.querySelector('.carousel-dots');
                         
                         // Clear existing content
                         reviewsContainer.innerHTML = '';
+                        dotsContainer.innerHTML = '';
                         
                         // Add reviews to carousel
                         filteredReviews.forEach((review, index) => {
@@ -105,9 +106,76 @@
                             if (index === 0) dot.classList.add("active");
                             dotsContainer.appendChild(dot);
                         });
+                        
+                        // Initialize carousel after reviews are loaded
+                        initializeCarousel();
                     }
                 }
             );
+        }
+        
+        // Function to initialize carousel controls
+        function initializeCarousel() {
+            const carousel = document.querySelector('.testimonial-carousel');
+            if (carousel) {
+                const container = carousel.querySelector('.testimonial-container');
+                const slides = carousel.querySelectorAll('.testimonial-slide');
+                const prevBtn = carousel.querySelector('.prev-btn');
+                const nextBtn = carousel.querySelector('.next-btn');
+                const dots = carousel.querySelectorAll('.carousel-dot');
+                
+                if (slides.length === 0) return; // No slides to show
+                
+                let currentIndex = 0;
+                const slideCount = slides.length;
+                
+                // Initialize carousel
+                updateCarousel();
+                
+                // Previous button click
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', function() {
+                        currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                        updateCarousel();
+                    });
+                }
+                
+                // Next button click
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', function() {
+                        currentIndex = (currentIndex + 1) % slideCount;
+                        updateCarousel();
+                    });
+                }
+                
+                // Dot navigation
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', function() {
+                        currentIndex = index;
+                        updateCarousel();
+                    });
+                });
+                
+                // Update carousel position and active dot
+                function updateCarousel() {
+                    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    
+                    // Update active dot
+                    dots.forEach((dot, index) => {
+                        if (index === currentIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }
+                
+                // Auto-advance carousel
+                setInterval(function() {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateCarousel();
+                }, 5000);
+            }
         }
     </script>
 

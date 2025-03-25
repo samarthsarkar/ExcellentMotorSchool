@@ -465,6 +465,7 @@ li {
     }
     
     .desktop-nav.active {
+        display: flex;
         right: 0;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
     }
