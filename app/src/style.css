@@ -218,7 +218,7 @@ nav a:hover {
 /* Parallax effect */
 .parallax {
     position: relative;
-    background: url('/app/src/assets/parallax2.jpg') no-repeat center center fixed;
+    background: url('/assets/parallax2.jpg') no-repeat center center fixed;
     height: 500px;
     background-size: cover;
     display: flex;
